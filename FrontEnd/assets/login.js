@@ -1,6 +1,6 @@
 const form = document.querySelector(".login-info");
 const loginError = document.getElementById("error");
-const loginURL = "http://localhost:5678/api/users";
+const loginURL = "http://localhost:5678/api";
 
 function getAuthorization() {
   const token = JSON.parse(localStorage.getItem('auth')).token;
