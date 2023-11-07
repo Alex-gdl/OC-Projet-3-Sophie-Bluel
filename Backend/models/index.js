@@ -16,8 +16,8 @@ db.categories = require('./categories.model.js')(sequelize, Sequelize);
 // Works and Categories Relationships
 db.categories.hasMany(db.works, {as: "works"})
 db.works.belongsTo(db.categories, {
-	foreignKey: 'categoriesId',
-	as: 'categories'
+	foreignKey: 'categoryId',
+	as: 'category'
 });
 
 // Works and Users Relationships

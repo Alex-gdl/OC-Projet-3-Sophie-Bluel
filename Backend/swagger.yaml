@@ -84,7 +84,7 @@ paths:
                     imageUrl:
                       type: string
                       example: "http://localhost:5678/images/abajour-tahina1651286843956.png"
-                    categoriesId:
+                    categoryId:
                       type: integer
                       format: int64
                       example: 1
@@ -92,7 +92,7 @@ paths:
                       type: integer
                       format: int64
                       example: 1
-                    categories:
+                    category:
                       type: object
                       properties:
                         id:
@@ -121,7 +121,7 @@ paths:
                  format: binary
                title:
                  type: string
-               categories:
+               category:
                  type: integer
                  format: int64
      responses:
@@ -139,7 +139,7 @@ paths:
                    type: string
                  imageUrl:
                    type: string
-                 categoriesId:
+                 categoryId:
                    type: string
                  userId:
                    type: integer

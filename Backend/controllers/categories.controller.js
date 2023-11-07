@@ -13,8 +13,8 @@ exports.findAll = async (req, res) =>  {
 
 exports.create = async (req, res) => {
 
-	const categories = await Categories.create({
+	const category = await Categories.create({
 		name : req.body.name
 	})
-	return res.status(201).json(categories)
+	return res.status(201).json(category)
 }

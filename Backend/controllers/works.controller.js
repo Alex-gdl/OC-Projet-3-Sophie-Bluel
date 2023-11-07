@@ -2,21 +2,21 @@ const db = require('./../models');
 const Works = db.works
 
 exports.findAll = async (req, res) =>  {
-	const works = await Works.findAll({include: 'categories'});
+	const works = await Works.findAll({include: 'category'});
 	return res.status(200).json(works);
 }
 
 exports.create = async (req, res) => {
 	const host = req.get('host');
 	const title = req.body.title;
-	const categoriesId = req.body.categories;
+	const categoryId = req.body.category;
 	const userId = req.auth.userId;
 	const imageUrl = `${req.protocol}://${host}/images/${req.file.filename}`;
 	try{
 		const work = await Works.create({
 			title,
 			imageUrl,
-			categoriesId,
+			categoryId,
 			userId
 		})
 		return res.status(201).json(work)
