@@ -13,44 +13,43 @@
 </head>
 
 <body class="login-container">
-<header>
-    <h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
-    <nav>
-        <ul>
-            <li><a href="index.html#projets" class="login-menu">projets</a></li>
-            <li><a href="index.html#contact" class="login-menu">contact</a></li>
-            <li><a href="./login.html" class="login-menu">login</a></li>
-            <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
-        </ul>
-    </nav>
-</header>
-
-<main class="login-main">
-        <div id="error">
-            <i class="fa-sharp fa-solid fa-triangle-exclamation"></i>
-            <h3>Erreur</h3>
-        </div>
-        <h2>Log In</h2>
-        <form class="login-info" method="post">
-            <label for="email">E-mail</label>
-            <input id="email" type="email" name="email" required/>
-            <label for="pass">Mot de passe</label>
-            <input id="password" type="password" name="password" required/>
-            <input type="submit" name="submit-login" value="Se connecter"/>
-        </form>
-        <a href="#">Mot de passe oublié</a>     
-</main>
-
-<footer>
-	<nav>
-		<ul>
-			<li>Mentions Légales</li>
-		</ul>
-	</nav>
-</footer>
-
-<script src="./assets/login.js"></script>
-<script src="./assets/modale.js"></script>
-<script src="./assets/script.js"></script>
-</body>
+    <header>
+        <h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+        <nav>
+            <ul>
+                <li><a href="index.html#projets" class="navigationLinks">projets</a></li>
+                <li><a href="index.html#contact" class="navigationLinks">contact</a></li>
+                <li><a href="login.html" class="navigationLinks">login</a></li>
+                <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main class="login-main">
+            <div id="error">
+                <i class="fa-sharp fa-solid fa-triangle-exclamation"></i>
+                <h3>Erreur</h3>
+            </div>
+            <h2>Log In</h2>
+            <form class="login-info" method="post">
+                <label for="email">E-mail</label>
+                <input id="email" type="email" name="email" required/>
+                <label for="pass">Mot de passe</label>
+                <input id="password" type="password" name="password" required/>
+                <input type="submit" name="submit-login" value="Se connecter"/>
+            </form>
+            <a href="#">Mot de passe oublié</a>     
+    </main>
+    
+    <footer class="footerbackground">
+        <nav>
+            <ul>
+                <li>Mentions Légales</li>
+            </ul>
+        </nav>
+    </footer>
+    
+    <script src="./assets/login.js"></script>
+    <script src="./assets/script.js"></script>
+    </body>
 </html>
