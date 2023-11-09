@@ -1,96 +1,90 @@
-const deleteModal = document.querySelector("#deleteModal");
-const openGalleryModalBtn = document.querySelector("#ChangesEdition");
-const closeGallery = document.querySelector("#xclose");
-const addPhotoModal = document.querySelector("#addPhotoModal");
-const photoAdd = document.querySelector("#photoAdd");
-const arrowLeftModal = document.querySelector(".arrowLeftModal");
-const closeModalBox = document.querySelector("#closeModalBox");
-const uploadImageInput = document.querySelector("#imageUpload");
-const preview = document.querySelector("#preview");
-const previewInfo = document.querySelector("#previewInfo");
-const submitChanges = document.querySelector("#submitChanges");
-const previewModal = document.querySelector(".addPhotoGallery");
-const formPhoto = document.querySelector("#formPhoto");
-const modalBox = document.querySelector("#modalbox");
+const elements = {
+    deleteModal: "#deleteModal",
+    openGalleryModalBtn: "#ChangesEdition",
+    closeGallery: "#xclose",
+    addPhotoModal: "#addPhotoModal",
+    photoAdd: "#photoAdd",
+    arrowLeftModal: ".arrowLeftModal",
+    closeModalBox: "#closeModalBox",
+    uploadImageInput: "#imageUpload",
+    preview: "#preview",
+    previewInfo: "#previewInfo",
+    submitChanges: "#submitChanges",
+    previewModal: ".addPhotoGallery",
+    formPhoto: "#formPhoto",
+    modalBox: "#modalbox",
+    alert: "#alert",
+};
 
-function openGalleryModal() {
-    setModalDisplay(deleteModal, "flex");
-    setModalDisplay(modalBox, "block");
+const getElem = (selector) => document.querySelector(selector);
+
+const setModalDisplay = (modal, displayValue) => {
+    getElem(modal).style.display = displayValue;
+};
+
+const openGalleryModal = () => {
+    setModalDisplay(elements.deleteModal, "flex");
+    setModalDisplay(elements.modalBox, "block");
     addProjectModalBox();
-}
+};
 
-function openaddProjectModalBox() {
-    setModalDisplay(addPhotoModal, "flex");
-    setModalDisplay(modalBox, "block");
-}
+const openAddProjectModalBox = () => {
+    setModalDisplay(elements.addPhotoModal, "flex");
+    setModalDisplay(elements.modalBox, "block");
+};
 
-function closeGalleryModal() {
-    setModalDisplay(deleteModal, "none");
-    setModalDisplay(modalBox, "none");
-}
+const closeGalleryModal = () => {
+    setModalDisplay(elements.deleteModal, "none");
+    setModalDisplay(elements.modalBox, "none");
+};
 
-function closeaddProjectModalBox() {
-    setModalDisplay(addPhotoModal, "none");
-    setModalDisplay(modalBox, "none");
-}
+const closeAddProjectModalBox = () => {
+    setModalDisplay(elements.addPhotoModal, "none");
+    setModalDisplay(elements.modalBox, "none");
+};
 
-function setModalDisplay(modal, displayValue) {
-    modal.style.display = displayValue;
-}
-
-if (openGalleryModalBtn) openGalleryModalBtn.addEventListener("click", openGalleryModal);
-if (photoAdd) photoAdd.addEventListener("click", () => {
+const openGalleryAndAddProjectModal = () => {
     closeGalleryModal();
-    openaddProjectModalBox();
-});
+    openAddProjectModalBox();
+};
 
-closeGallery.addEventListener("click", closeGalleryModal);
-closeModalBox.addEventListener("click", closeaddProjectModalBox);
-
-arrowLeftModal.addEventListener("click", () => {
-    closeaddProjectModalBox();
+const handleArrowLeftClick = () => {
+    closeAddProjectModalBox();
     openGalleryModal();
     addProjectModalBox();
-});
+};
 
-window.onclick = function (event) {
-    if (event.target == modalBox) {
-        closeaddProjectModalBox();
+const handleWindowClick = (event) => {
+    if (event.target === getElem(elements.modalBox)) {
+        closeAddProjectModalBox();
         closeGalleryModal();
     }
-}
+};
 
-function deleteWork(event, id) {
-    fetch(`http://localhost:5678/api/works/${id}`, {
+const deleteWork = (id) => {
+    fetch(`${baseUrl}${id}`, {
         method: "DELETE",
         headers: {
             'Accept': 'application/json',
             'Authorization': recoverIdToken(),
             'Content-Type': 'application/json',
         },
-        params: {
-            'id': id
-        },
+        params: { 'id': id },
     })
-    .then(() => {
-        const parentDiv = event.parentNode;
-        parentDiv.remove();
-        displayAlert("Votre photo a été supprimé avec succès");
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-}
+        .then(() => {
+            parentDiv.remove();
+            displayAlert("Succès");
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+};
 
-async function sendWorkData(data) {
-    const postWorkUrl = 'http://localhost:5678/api/works/';
-
+const sendWorkData = async (data) => {
     try {
-        const response = await fetch(postWorkUrl, {
+        const response = await fetch(baseUrl, {
             method: "POST",
-            headers: {
-                'Authorization': recoverIdToken()
-            },
+            headers: { 'Authorization': recoverIdToken() },
             body: data,
         });
 
@@ -100,29 +94,25 @@ async function sendWorkData(data) {
     } catch (error) {
         console.error("Erreur :", error);
     }
-}
+};
 
-function displayAlert(message) {
-    const alert = document.getElementById('alert');
-    alert.innerHTML = message;
-    alert.style.display = "block";
-    setTimeout(() => { alert.style.display = "none"; }, 5000);
-}
+const displayAlert = (message) => {
+    getElem(elements.alert).innerHTML = message;
+    getElem(elements.alert).style.display = "block";
+    setTimeout(() => { getElem(elements.alert).style.display = "none"; }, 5000);
+};
 
-uploadImageInput.addEventListener("change", uploadImage);
-formPhoto.addEventListener("submit", handleFormSubmit);
-
-function handleFormSubmit(event) {
+const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    if (!formPhoto.checkValidity()) {
+    if (!getElem(elements.formPhoto).checkValidity()) {
         alert("Erreur");
         return;
     }
 
-    const title = formPhoto.querySelector("#infoCategoryModal").value;
-    const category = formPhoto.querySelector("#chooseCategoryModal").value;
-    const file = uploadImageInput.files[0];
+    const title = getElem(`${elements.formPhoto} #infoCategoryModal`).value;
+    const category = getElem(`${elements.formPhoto} #chooseCategoryModal`).value;
+    const file = getElem(elements.uploadImageInput).files[0];
 
     const formData = new FormData();
     formData.append("title", title);
@@ -130,24 +120,36 @@ function handleFormSubmit(event) {
     formData.append("image", file);
 
     sendWorkData(formData);
-}
+};
 
-function uploadImage() {
-    if (uploadImageInput.files && uploadImageInput.files[0]) {
+const uploadImage = () => {
+    const { files } = getElem(elements.uploadImageInput);
+
+    if (files && files[0]) {
         const reader = new FileReader();
         const image = new Image();
-        const fileName = uploadImageInput.files[0].name;
+        const fileName = files[0].name;
 
         reader.onload = event => {
             image.src = event.target.result;
             image.alt = fileName.split(".")[0];
         };
 
-        previewInfo.style.display = "none";
-        submitChanges.style.backgroundColor = "#1D6154";
-        preview.style.display = "block";
-        previewModal.style.backgroundColor = "#FFFFFF";
-        reader.readAsDataURL(uploadImageInput.files[0]);
-        preview.appendChild(image);
+        getElem(elements.previewInfo).style.display = "none";
+        getElem(elements.submitChanges).style.backgroundColor = "#1D6154";
+        getElem(elements.preview).style.display = "block";
+        getElem(elements.previewModal).style.backgroundColor = "#FFFFFF";
+        reader.readAsDataURL(files[0]);
+        getElem(elements.preview).appendChild(image);
     }
-}
+};
+
+// Event Listeners
+getElem(elements.openGalleryModalBtn)?.addEventListener("click", openGalleryModal);
+getElem(elements.photoAdd)?.addEventListener("click", openGalleryAndAddProjectModal);
+getElem(elements.closeGallery)?.addEventListener("click", closeGalleryModal);
+getElem(elements.closeModalBox)?.addEventListener("click", closeAddProjectModalBox);
+getElem(elements.arrowLeftModal)?.addEventListener("click", handleArrowLeftClick);
+window.onclick = handleWindowClick;
+getElem(elements.uploadImageInput)?.addEventListener("change", uploadImage);
+getElem(elements.formPhoto)?.addEventListener("submit", handleFormSubmit);
