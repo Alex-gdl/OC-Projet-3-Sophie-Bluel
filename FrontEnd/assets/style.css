@@ -189,6 +189,10 @@ footer nav ul {
 
 /********************** My code *************/
 
+.footerbackground {
+	background-color: white;
+	margin-top: 120px;
+} 
 
 
 article p {
@@ -211,9 +215,9 @@ article p {
 }
 
 #filters {
+	margin-bottom: 30px;
 	display: flex;
 	justify-content: center;
-
 }
 
 .filterOption {
