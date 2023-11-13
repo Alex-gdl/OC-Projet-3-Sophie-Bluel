@@ -61,8 +61,11 @@ const handleWindowClick = (event) => {
     }
 };
 
+const baseURL = 'http://localhost:5678/api/works/';
+
 const deleteWork = (id) => {
-    fetch(`${baseUrl}${id}`, {
+    console.log(`${baseURL}${id}`)
+    fetch(`${baseURL}${id}`, {
         method: "DELETE",
         headers: {
             'Accept': 'application/json',
@@ -81,8 +84,9 @@ const deleteWork = (id) => {
 };
 
 const sendWorkData = async (data) => {
+    console.log(data)
     try {
-        const response = await fetch(baseUrl, {
+        const response = await fetch(baseURL, {
             method: "POST",
             headers: { 'Authorization': recoverIdToken() },
             body: data,
@@ -116,7 +120,7 @@ const handleFormSubmit = (event) => {
 
     const formData = new FormData();
     formData.append("title", title);
-    formData.append("filters", filters);
+    formData.append("category", category);
     formData.append("image", file);
 
     sendWorkData(formData);
