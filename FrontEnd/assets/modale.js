@@ -63,7 +63,7 @@ const handleWindowClick = (event) => {
 
 const baseURL = 'http://localhost:5678/api/works/';
 
-const deleteWork = (id) => {
+const deleteWork = (event, id) => {
     console.log(`${baseURL}${id}`)
     fetch(`${baseURL}${id}`, {
         method: "DELETE",
@@ -75,7 +75,6 @@ const deleteWork = (id) => {
         params: { 'id': id },
     })
         .then(() => {
-            parentDiv.remove();
             displayAlert("Succès");
         })
         .catch((error) => {
@@ -147,6 +146,24 @@ const uploadImage = () => {
         getElem(elements.preview).appendChild(image);
     }
 };
+
+const refreshGallery = (worksData) => {
+    const gallery = document.getElementsByClassName('gallery')[0];
+
+    gallery.innerHTML = '';
+
+    worksData.forEach(work => {
+        const workElement = createWorkElement(work);
+        gallery.appendChild(workElement);
+
+        img.src = work.imageUrl;
+        img.crossOrigin = 'anonymous';
+    });
+};
+
+const worksData = [];
+
+refreshGallery(worksData);
 
 // Event Listeners
 getElem(elements.openGalleryModalBtn)?.addEventListener("click", openGalleryModal);

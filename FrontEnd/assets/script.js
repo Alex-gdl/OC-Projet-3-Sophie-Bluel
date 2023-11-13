@@ -134,7 +134,7 @@ function addProjectModalBox() {
     const trashGallery = document.createElement('i');
     trashGallery.setAttribute("class", "fa fa-trash");
     trashGallery.setAttribute("data-id", work.id);
-    trashGallery.addEventListener("click", (event) => { 
+    trashGallery.addEventListener("click",  (event) => { 
         console.log(event.target)
         let workId = event.target.dataset.id
         deleteWork(workId)
@@ -146,3 +146,4 @@ function addProjectModalBox() {
   
     galeriePhoto.appendChild(fragment);
 }
+
