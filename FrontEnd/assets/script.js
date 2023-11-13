@@ -145,5 +145,6 @@ function addProjectModalBox() {
     });
   
     galeriePhoto.appendChild(fragment);
+   
 }
 
